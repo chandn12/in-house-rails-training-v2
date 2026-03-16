@@ -1,4 +1,10 @@
 class Book < ApplicationRecord
+  include Discard::Model
+  include PublicActivity::Model
+  tracked owner: Proc.new { |controller, model| controller&.current_user }
+
+  has_many :activities, as: :trackable, class_name: "PublicActivity::Activity", dependent: :destroy
+
   belongs_to :user
   has_and_belongs_to_many :genres
 
@@ -11,6 +17,17 @@ class Book < ApplicationRecord
 
   delegate :can?, :cannot?, to: :ability
 
+  after_create :notify_admin_of_new_book
+
+  def to_s
+    name
+  end
+
+  def discardable?
+    return false if discarded?
+    true
+  end
+
   def ability
     @ability ||= Ability.new(self)
   end
@@ -21,5 +38,11 @@ class Book < ApplicationRecord
     unless cover.content_type.in?(%w[image/png image/jpeg])
       errors.add(:cover, "must be a PNG or JPG")
     end
+  end
+
+  private
+
+  def notify_admin_of_new_book
+    AdminMailer.new_book(self).deliver_now
   end
 end

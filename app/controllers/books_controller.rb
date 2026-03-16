@@ -5,12 +5,14 @@ class BooksController < ApplicationController
 
   # GET /books or /books.json
   def index
-    @books = Book.all
-    @pagy, @books = pagy(Book.all)
+    @books = Book.recent_first
+    @pagy, @books = pagy(@books)
   end
 
   # GET /books/1 or /books/1.json
   def show
+    @book = Book.find(params[:id])
+    can? :show, @book
   end
 
   # GET /books/new
@@ -20,6 +22,8 @@ class BooksController < ApplicationController
 
   # GET /books/1/edit
   def edit
+    @book = Book.find(params[:id])
+    can? :edit, @book
   end
 
   # POST /books or /books.json
@@ -40,8 +44,10 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1 or /books/1.json
   def update
     @book = Book.find(params[:id])
+    @book.undiscard
+    redirect_to books_path, notice: "Book was successfully restored."
       unless can? :update, @book
-      return head :forbidden
+        return head :forbidden
       end
 
     respond_to do |format|
@@ -57,22 +63,26 @@ class BooksController < ApplicationController
 
   # DELETE /books/1 or /books/1.json
   def destroy
-    @book.destroy!
+    @book = Book.find(params[:id])
+    can? :destroy, @book
+    @book.discard
+    redirect_to books_path, notice: "Book was successfully removed."
+  end
 
-    respond_to do |format|
-      format.html { redirect_to books_path, notice: "Book was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
-    end
+  def undiscard
+    @book = Book.with_discarded.find(params[:id])
+    @book.undiscard
+    redirect_to books_path
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_book
-      @book = Book.find(params.expect(:id))
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_book
+    @book = Book.find(params.expect(:id))
+  end
 
-    # Only allow a list of trusted parameters through.
-    def book_params
-      params.expect(book: [ :name, :short_description, :cover, genre_ids: [] ])
-    end
+  # Only allow a list of trusted parameters through.
+  def book_params
+    params.expect(book: [ :name, :short_description, :cover, genre_ids: [] ])
+  end
 end

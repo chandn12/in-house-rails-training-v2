@@ -1,5 +1,3 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Genres" %>
 
 <div class="d-flex flex-row justify-content-between align-items-center">
@@ -23,16 +21,11 @@
       <tr>
         <td><%= genre.name %></td>
         <td><%= genre.books.map(&:name).join(", ") %></td>
-        <td>
-          <%= link_to genre do %>
-            <i class="manage-icon-sm fa-solid fa-eye"></i>
-          <% end %>
-        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<div class="pag-bar mt-5 pt-5">
+<div class="pag-bar mt-3">
 	<%== pagy_bootstrap_nav(@pagy) %>
 </div>

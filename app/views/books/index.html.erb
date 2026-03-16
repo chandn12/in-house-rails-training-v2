@@ -1,5 +1,3 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Books" %>
 
 <div class="d-flex flex-row justify-content-between align-items-center">
@@ -19,11 +17,11 @@
 <table class="table table-sm table-striped ml-4 my-4">
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Title</th>
       <th>Description</th>
       <th>Genre</th>
       <th>User</th>
-      <th>Book Cover</th>
+      <th>Cover</th>
     </tr>
   </thead>
 
@@ -39,16 +37,11 @@
             <%= image_tag url_for(book.cover), alt: "Book cover", class: "book-cover" %>
           <% end %>
         </td>
-        <td>
-          <%= link_to book do %>
-            <i class="manage-icon-sm fa-solid fa-eye"></i>
-          <% end %>
-        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<div class="pag-bar mt-5 pt-5">
+<div class="pag-bar mt-3">
 	<%== pagy_bootstrap_nav(@pagy) %>
 </div>

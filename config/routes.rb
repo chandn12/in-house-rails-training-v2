@@ -1,10 +1,19 @@
 Rails.application.routes.draw do
+  authenticate :user, ->(user) { user.admin? } do
+end
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
   get "home/index"
   devise_for :users
   get "/terms", to: "home#terms", as: :terms
   resources :genres
-  resources :books
   resources :users
+  resources :books do
+    member do
+      patch :undiscard
+    end
+  end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

@@ -24,8 +24,18 @@
   </head>
 
   <body>
+    <header>
+      <div class="hero-image" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url('<%= asset_path('bg-book-cover.jpg') %>');"></div>
+    </header>
     <div class="container my-5">
       <%= render "layouts/sidebar" %>
+
+      <% if flash[:notice] %>
+        <div class="text-success my-2">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+
       <%= yield %>
     </div>
   </body>

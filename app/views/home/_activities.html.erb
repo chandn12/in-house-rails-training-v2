@@ -1,0 +1,38 @@
+<div class="mt-5">
+  <h4>Recent activities</h4>
+
+  <table class="table table-sm table-striped ml-4 mt-3">
+    <tbody>
+      <% activities.each do |a| %>
+        <% next unless a.trackable.present? %>
+        <tr>
+          <td><%= a.created_at %></td>
+          <td><%= link_to a.trackable, a.trackable %></td>
+          <td>
+            <%= a.owner&.first_name || "System" %>
+          </td>
+          <td class="d-none d-md-flex flex-row justify-content-end">
+            <%= link_to book_path(a.trackable) do %>
+              <i class="manage-icon fa-solid fa-eye"></i>
+            <% end %>
+            <% if can? :update, a.trackable %>
+              <%= link_to edit_book_path(a.trackable) do %>
+                <i class="manage-icon fa-solid fa-pen-to-square ms-2"></i>
+              <% end %>
+            <% end %>
+            <% if can? :destroy, a.trackable %>
+              <%= link_to book_path(a.trackable), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+                <i class="manage-icon-destroy fa-solid fa-trash ms-2"></i>
+              <% end %>
+            <% end %>
+            <% if a.trackable.discarded? %>
+              <%= link_to undiscard_book_path(a.trackable), data: { turbo_method: :patch } do %>
+                <i class="manage-icon-undiscard fa-solid fa-trash-arrow-up ms-2"></i>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

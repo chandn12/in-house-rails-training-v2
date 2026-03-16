@@ -1,32 +1,50 @@
+.hero-image {
+  background-size: cover;
+  background-position: 50% 44%;
+  background-repeat: no-repeat;
+  height:40vh;
+  width:100%;
+}
+
 .sidebar {
   height: 100vh;
-  width: 50px;
-  background-color:#3a2336;
+  min-width:50px;
+  background-color:#50364b;
   padding: 20px 0;
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 0px;
+  left: 0;
   .sidebar-icon {
     color: #fdfdfd;
     font-size: 22px;
   }
   .sidebar-icon:hover {
-    color: #f3c9e6d2;
+    color: #ffffffa6;
   }
 }
 
 .manage-icon {
-  color: #523a4d;
+  color: #70516a;
   font-size: 20px;
 }
 
 .manage-icon-sm {
-  color: #523a4d;
+  color: #70516a;
   font-size: 18px;
 }
 
+.manage-icon-destroy {
+  color: #585858;
+  font-size: 20px;
+}
+
+.manage-icon-undiscard {
+  color: #1a9c41;
+  font-size: 20px;
+}
+
 .btn-user-action, .btn-submit {
-  background-color: #523a4d;
+  background-color: #70516a;
   color: #ffffff;
   padding: 4px 12px;
   border-radius: 15px;
@@ -39,6 +57,11 @@
 }
 
 .book-cover {
-  width: auto;
+  width: 95px;
   height: 130px;
+}
+
+.book-cover-lg {
+  width: 140px;
+  height: 200px;
 }

@@ -1,22 +1,38 @@
 <div id="<%= dom_id book %>">
+
   <div>
-    <strong>Name:</strong>
+    <% if @book.cover.attached? %>
+      <%= image_tag url_for(@book.cover), alt: "Book cover", class: "book-cover-lg mb-4" %>
+    <% end %>
+  </div>
+
+  <div>
+    <strong>Title:</strong>
     <%= book.name %>
   </div>
 
   <div>
-    <strong>Short description:</strong>
+    <strong>Description:</strong>
     <%= book.short_description %>
   </div>
 
   <div>
-    <strong>User:</strong>
-    <%= book.user_id %>
+    <strong>Genre:</strong>
+    <%= book.genres.map(&:name).join(", ") %>
   </div>
 
   <div>
-    <strong>Genre:</strong>
-    <%= book.genre_id %>
+    <strong>User:</strong>
+    <%= book.user.first_name %>
+  </div>
+
+  <div>
+    <strong>Email:</strong>
+    <%= book.user.email %>
+  </div>
+
+  <div class="my-3">
+    <strong>Created At:</strong> <%= @book.created_at&.strftime('%A %d %B %Y') %>
   </div>
 
 </div>

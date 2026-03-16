@@ -4,7 +4,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-     can [ :read, :update, :destroy ], Book, user: user
+    can [ :read, :update, :destroy ], Book, user: user
 
     return unless user.admin?
     can :manage, :all
