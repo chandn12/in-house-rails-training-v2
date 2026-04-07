@@ -66,7 +66,7 @@ group :test do
 end
 
 gem "cancancan", "~> 3.6", ">= 3.6.1"
-gem "rubocop", "~> 1.85"
+gem "rubocop", "~> 1.86"
 gem "public_activity", "~> 3.0", ">= 3.0.2"
 gem "brakeman", "~> 8.0", ">= 8.0.4"
 gem "pagy", "~> 9.4"
