@@ -4,11 +4,8 @@
   <h1>Users</h1>
 
   <div class="align-items-end">
-    <%= link_to home_index_path do %>
-      <i class="manage-icon me-2 fa-solid fa-house"></i>
-    <% end %>
     <%= link_to new_user_path do %>
-      <i class="manage-icon fa-solid fa-plus"></i>
+      <i class="manage-icon fa-solid fa-circle-plus"></i>
     <% end %>
   </div>
 </div>
@@ -27,11 +24,11 @@
       <tr>
         <td><%= user.first_name %> <%= user.last_name %></td>
         <td><%= user.email %></td>
-        <td><%= user.date_of_birth&.strftime('%d %B, %Y') %></td>
+        <td><%= user.date_of_birth&.strftime('%d %b, %Y') %></td>
         <td>
           <div class="dropdown">
-            <button class="btn-user-action dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              User Action
+            <button class="btn-user-action dropdown-toggle rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="btn-text">User Action</span>
             </button>
             <ul class="dropdown-menu">
               <li>

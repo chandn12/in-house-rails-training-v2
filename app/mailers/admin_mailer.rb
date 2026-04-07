@@ -5,7 +5,7 @@ class AdminMailer < ApplicationMailer
     @user = user
 
     mail(
-      to: "admin@example.com",
+      to: "chandn33@example.com",
       subject: "New user registered: #{@user.email}"
     )
   end
@@ -14,7 +14,7 @@ class AdminMailer < ApplicationMailer
     @book = book
 
     mail(
-      to: "admin@example.com",
+      to: "chandn33@example.com",
       subject: "New book created: #{@book.name}"
     )
   end

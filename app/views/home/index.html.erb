@@ -1,1 +1,8 @@
+<% if user_signed_in? %>
+  <p class="sidebar-user d-flex fw-bold gap-2 justify-content-end align-items-center mt-md-3 mb-0">
+    <i class="fa-solid fa-right-to-bracket"></i>
+    <span class="p-0"><%= current_user.first_name %></span>
+  </p>
+<% end %>
+
 <%= render "activities", activities: @activities %>

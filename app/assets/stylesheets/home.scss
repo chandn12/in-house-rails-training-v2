@@ -1,53 +1,73 @@
+body {
+  background-color: #fdfdfd;
+  color: #2d324b;
+}
+
 .hero-image {
   background-size: cover;
-  background-position: 50% 44%;
+  background-position: 50% 38%;
   background-repeat: no-repeat;
-  height:40vh;
+  height:45vh;
   width:100%;
+}
+
+h1 {
+  color: #414e90;
+}
+
+.main-content {
+  margin-left: calc(80px);
+  margin-right: calc(30px);
 }
 
 .sidebar {
   height: 100vh;
   min-width:50px;
-  background-color:#50364b;
+  background-color:#2d324b;
   padding: 20px 0;
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 9999;
   .sidebar-icon {
     color: #fdfdfd;
-    font-size: 22px;
+    font-size: 20px;
   }
   .sidebar-icon:hover {
     color: #ffffffa6;
   }
 }
 
+.sidebar-user {
+  font-weight: bold;
+  color: #414e90;
+}
+
 .manage-icon {
-  color: #70516a;
+  color: #414e90;
   font-size: 20px;
 }
 
 .manage-icon-sm {
-  color: #70516a;
   font-size: 18px;
 }
 
 .manage-icon-destroy {
-  color: #585858;
-  font-size: 20px;
+  color: #8a8888;
 }
 
-.manage-icon-undiscard {
-  color: #1a9c41;
-  font-size: 20px;
+.manage-icon-pdf {
+  color: #e47272;
+}
+
+.manage-icon-x, .manage-icon-undiscard {
+  color: #28a950;
 }
 
 .btn-user-action, .btn-submit {
-  background-color: #70516a;
+  background-color: #2d324b;
   color: #ffffff;
   padding: 4px 12px;
-  border-radius: 15px;
   border: none;
   font-weight: bold;
 }
@@ -64,4 +84,34 @@
 .book-cover-lg {
   width: 140px;
   height: 200px;
+}
+a {
+  text-decoration: none;
+}
+
+/* Mobile view */
+@media only screen and (max-width: 992px) {
+  .manage-icon, .manage-icon-destroy, .manage-icon-undiscard {
+    font-size: 17px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .btn-text {
+    display: none;
+  }
+
+  .sidebar {
+    height: 50px;
+    width: 100%;
+    padding: 15px 10px;
+    .sidebar-icon {
+      font-size: 20px;
+    }
+  }
+
+  .main-content {
+    margin-left: 30px;
+    margin-top: 80px;
+  }
 }

@@ -1,5 +1,5 @@
-<div class="mt-5">
-  <h4>Recent activities</h4>
+<div class="mt-2">
+  <h1>Recent activities</h1>
 
   <table class="table table-sm table-striped ml-4 mt-3">
     <tbody>
@@ -11,7 +11,7 @@
           <td>
             <%= a.owner&.first_name || "System" %>
           </td>
-          <td class="d-none d-md-flex flex-row justify-content-end">
+          <td class="d-flex flex-wrap justify-content-end">
             <%= link_to book_path(a.trackable) do %>
               <i class="manage-icon fa-solid fa-eye"></i>
             <% end %>
@@ -20,14 +20,26 @@
                 <i class="manage-icon fa-solid fa-pen-to-square ms-2"></i>
               <% end %>
             <% end %>
-            <% if can? :destroy, a.trackable %>
+            <% if current_user.admin? && a.trackable.discarded? %>
+              <%= link_to undiscard_book_path(a.trackable), data: { turbo_method: :patch } do %>
+                <i class="manage-icon manage-icon-undiscard fa-solid fa-rotate-left ms-2"></i>  
+              <% end %>
+            <% elsif can? :destroy, a.trackable %>  
               <%= link_to book_path(a.trackable), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
-                <i class="manage-icon-destroy fa-solid fa-trash ms-2"></i>
+                <i class="manage-icon manage-icon-destroy fa-solid fa-trash-can ms-2"></i>  
               <% end %>
             <% end %>
-            <% if a.trackable.discarded? %>
-              <%= link_to undiscard_book_path(a.trackable), data: { turbo_method: :patch } do %>
-                <i class="manage-icon-undiscard fa-solid fa-trash-arrow-up ms-2"></i>
+            <% if a.trackable.is_a?(Book) %>
+              <% if can? :download_pdf, a.trackable %>
+                <%= link_to book_path(a.trackable, format: :pdf), target: '_blank' do %>
+                  <i class="manage-icon manage-icon-pdf fa-solid fa-file-pdf ms-2"></i>
+                <% end %>  
+              <% end %>  
+            <% elsif a.trackable.is_a?(User) %>
+              <% if can? :download_xlsx, a.trackable %>
+                <%= link_to user_path(a.trackable, format: :xlsx), target: '_blank' do %>
+                  <i class="manage-icon manage-icon-x fa-solid fa-file-excel ms-2"></i>
+                <% end %>
               <% end %>
             <% end %>
           </td>

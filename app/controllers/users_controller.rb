@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+
+  require "csv"
+  require "rubyXL"
 
   # GET /users or /users.json
   def index
@@ -8,6 +12,14 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.xlsx do
+        generate_new_user
+      end
+    end
   end
 
   # GET /users/new
@@ -57,14 +69,18 @@ class UsersController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params.expect(:id))
-    end
+  def generate_new_user
+    send_data(UserSpreadsheetExport.new(@user).call, disposition: "attachment", filename: "User Info.xlsx", type: "application/xlsx")
+  end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.expect(user: [ :first_name, :last_name, :email, :date_of_birth ])
-    end
+  private
+
+  def set_user
+    @user = User.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def user_params
+    params.expect(user: [ :first_name, :last_name, :email, :date_of_birth ])
+  end
 end

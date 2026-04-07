@@ -1,8 +1,8 @@
 <%= render @user %>
 
-<div>
+<div class="main-content my-3">
   <%= link_to "Edit this user", edit_user_path(@user) %> ╏
   <%= link_to "Back to users", users_path %>
 
-  <%= button_to "Destroy this user", @user, class: "btn-submit mt-2", method: :delete %>
+  <%= button_to "Destroy this user", @user, class: "btn-submit rounded mt-2", method: :delete %>
 </div>

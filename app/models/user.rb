@@ -11,6 +11,10 @@ class User < ApplicationRecord
 
   after_create :notify_admin_of_new_user
 
+  def to_s
+    "New User: #{self.first_name}"
+  end
+
   def admin?
     admin
   end

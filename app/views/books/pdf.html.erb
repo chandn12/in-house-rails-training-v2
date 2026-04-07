@@ -1,0 +1,43 @@
+<h1>Book PDF</h1>
+
+<div id="<%= dom_id @book %>">
+
+  <div>
+    <% if @book.cover.attached? %>
+      <% book_cover = Base64.encode64(@book.cover.download) %>
+      <% content_type = @book.cover.content_type %>
+      <%= image_tag "data:#{content_type};base64,#{book_cover}", width: "200", height: "300", style: "margin-bottom:30px" %>
+    <% end %>
+  </div>
+
+  <div>
+    <strong>Title:</strong>
+    <%= @book.name %>
+  </div>
+
+  <div>
+    <strong>Description:</strong>
+    <%= @book.short_description %>
+  </div>
+
+  <div>
+    <strong>Genre:</strong>
+    <%= @book.genres.map(&:name).join(", ") %>
+  </div>
+
+  <div>
+    <strong>User:</strong>
+    <%= @book.user.first_name %>
+  </div>
+
+  <div>
+    <strong>Email:</strong>
+    <%= @book.user.email %>
+  </div>
+
+  <div>
+    <strong>Created At:</strong>
+    <%= @book.created_at&.strftime('%A %d %B %Y') %>
+  </div>
+
+</div>

@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   include Pagy::Backend
 
@@ -9,10 +10,18 @@ class BooksController < ApplicationController
     @pagy, @books = pagy(@books)
   end
 
-  # GET /books/1 or /books/1.json
   def show
     @book = Book.find(params[:id])
     can? :show, @book
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "#{@book.name}",
+        template: "books/pdf",
+        formats: [ :html ]
+      end
+    end
   end
 
   # GET /books/new
@@ -66,13 +75,13 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     can? :destroy, @book
     @book.discard
-    redirect_to books_path, notice: "Book was successfully removed."
+    redirect_to home_index_path, notice: "Book was successfully removed."
   end
 
   def undiscard
     @book = Book.with_discarded.find(params[:id])
     @book.undiscard
-    redirect_to books_path
+    redirect_to home_index_path
   end
 
   private

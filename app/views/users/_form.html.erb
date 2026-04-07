@@ -13,8 +13,13 @@
 
   <div class="user-form">
     <div class="mb-3">
-      <%= form.label :first_name, "Full name", style: "display: block" %>
+      <%= form.label :first_name, "Name", style: "display: block" %>
       <%= form.text_field :first_name, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :last_name, "Surname", style: "display: block" %>
+      <%= form.text_field :last_name, class: "form-control" %>
     </div>
 
     <div class="mb-3">
@@ -28,7 +33,7 @@
     </div>
 
     <div class="text-end">
-      <%= form.submit "Submit", class: "btn-submit" %>
+      <%= form.submit "Submit", class: "btn-submit rounded" %>
     </div>
   </div>
 <% end %>
