@@ -12,7 +12,7 @@ body {
 }
 
 h1 {
-  color: #414e90;
+  color: #39447b;
 }
 
 .main-content {
@@ -40,11 +40,11 @@ h1 {
 
 .sidebar-user {
   font-weight: bold;
-  color: #414e90;
+  color: #39447b;
 }
 
 .manage-icon {
-  color: #414e90;
+  color: #39447b;
   font-size: 20px;
 }
 
@@ -53,7 +53,7 @@ h1 {
 }
 
 .manage-icon-destroy {
-  color: #8a8888;
+  color: #7a7a7a;
 }
 
 .manage-icon-pdf {
@@ -64,8 +64,12 @@ h1 {
   color: #28a950;
 }
 
+.manage-icon-undiscard {
+  font-size: 18px;
+}
+
 .btn-user-action, .btn-submit {
-  background-color: #2d324b;
+  background-color: #39447b;
   color: #ffffff;
   padding: 4px 12px;
   border: none;

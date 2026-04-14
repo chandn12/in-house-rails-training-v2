@@ -69,11 +69,11 @@ class UsersController < ApplicationController
     end
   end
 
-  def generate_new_user
-    send_data(UserSpreadsheetExport.new(@user).call, disposition: "attachment", filename: "User Info.xlsx", type: "application/xlsx")
-  end
-
   private
+
+  def generate_new_user
+    send_data(UserSpreadsheetExport.new(@user).call.stream.read, disposition: "attachment", filename: "User-Information.xlsx", type: "application/xlsx")
+  end
 
   def set_user
     @user = User.find(params.expect(:id))

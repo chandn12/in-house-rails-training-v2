@@ -9,7 +9,7 @@
     <%= link_to users_path do %>
       <i class="sidebar-icon fa-solid fa-user"></i>
     <% end %>
-    <%= link_to books_path, class: "px-4 px-md-0 py-md-4" do %>
+    <%= link_to books_path, class: "px-3 px-md-0 py-md-3" do %>
       <i class="sidebar-icon fa-solid fa-book"></i>
     <% end %>
     <%= link_to genres_path do %>
@@ -20,7 +20,7 @@
   <div class="d-flex flex-md-column align-items-center">
     <% if user_signed_in? && current_user.admin? %>
       <%= link_to "/letter_opener", target: "_blank" do %>
-        <i class="sidebar-icon fa-solid fa-envelopes-bulk me-4 me-md-0 mb-md-4"></i>
+        <i class="sidebar-icon fa-solid fa-envelopes-bulk me-3 me-md-0 mb-md-3"></i>
       <% end %>
     <% end %>
     <% if user_signed_in? %>

@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   authenticate :user, ->(user) { user.admin? } do
-end
-  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  end
 
   get "home/index"
-  devise_for :users
   get "/terms", to: "home#terms", as: :terms
+  devise_for :users
   resources :genres
   resources :users
   resources :books do
