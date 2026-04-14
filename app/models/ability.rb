@@ -9,7 +9,7 @@ class Ability
     return unless user.admin?
     can :manage, :all
     can :download_pdf, Book
-    can :download_xlxs, Book
+    can :download_xlsx, Book
     # Define abilities for the user here. For example:
     #
     #   return unless user.present?
