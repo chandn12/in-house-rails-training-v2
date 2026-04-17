@@ -8,7 +8,13 @@
         <% next if a.trackable.is_a?(User) && !current_user.admin? %>
         <tr>
           <td><%= a.created_at %></td>
-          <td><%= link_to a.trackable, a.trackable %></td>
+          <td>
+            <% if a.trackable.is_a?(Book) %>
+              <%= link_to a.trackable, a.trackable %>
+            <% elsif a.trackable.is_a?(User) %>
+              <%= link_to a.trackable, [:admin, a.trackable] %>
+            <% end %>
+          </td>
           <td>
             <%= a.owner&.first_name || "System" %>
           </td>
@@ -40,7 +46,7 @@
               <% end %>
             <% elsif a.trackable.is_a?(User) %>
               <% if can? :download_xlsx, a.trackable %>
-                <%= link_to user_path(a.trackable, format: :xlsx), target: '_blank' do %>
+                <%= link_to admin_user_path(a.trackable, format: :xlsx), target: '_blank' do %>
                   <i class="manage-icon manage-icon-x fa-solid fa-file-excel ms-2"></i>
                 <% end %>
               <% end %>

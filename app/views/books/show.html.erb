@@ -3,7 +3,8 @@
 <div>
   <% if user_signed_in? && current_user.admin? %>
     <%= link_to "Edit this book", edit_book_path(@book) %> ╏
-    <%= link_to "Back to books", books_path %> 
+    <%= link_to "View all books", books_path %> ╏
+    <%= link_to "Back to home", home_index_path %>
 
     <%= button_to "Destroy this book", @book, class: "btn-submit rounded mt-2", method: :delete %>
   <% end %>

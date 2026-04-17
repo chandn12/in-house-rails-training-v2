@@ -4,7 +4,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :books
+  has_many :books, dependent: :destroy
+
+  validates :first_name, :last_name, :date_of_birth, presence: true
 
   include PublicActivity::Model
   tracked only: [ :create, :destroy ], owner: :itself
