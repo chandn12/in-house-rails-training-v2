@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_10_123616) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_21_131128) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -83,6 +83,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_123616) do
     t.index ["discarded_at"], name: "index_genres_on_discarded_at"
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.bigint "book_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["book_id"], name: "index_likes_on_book_id"
+    t.index ["user_id", "book_id"], name: "index_likes_on_user_id_and_book_id", unique: true
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.boolean "admin", default: false
     t.datetime "created_at", null: false
@@ -91,6 +101,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_123616) do
     t.string "email"
     t.string "encrypted_password", default: "", null: false
     t.string "first_name"
+    t.datetime "invitation_accepted_at"
+    t.datetime "invitation_created_at"
+    t.integer "invitation_limit"
+    t.datetime "invitation_sent_at"
+    t.string "invitation_token"
+    t.integer "invitations_count", default: 0
+    t.bigint "invited_by_id"
+    t.string "invited_by_type"
     t.string "last_name"
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
@@ -98,10 +116,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_123616) do
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "books", "users"
+  add_foreign_key "likes", "books"
+  add_foreign_key "likes", "users"
 end

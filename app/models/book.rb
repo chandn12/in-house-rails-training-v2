@@ -5,6 +5,8 @@ class Book < ApplicationRecord
 
   has_many :activities, as: :trackable, class_name: "PublicActivity::Activity", dependent: :destroy
 
+  has_many :likes, dependent: :destroy
+
   belongs_to :user, optional: true
   has_and_belongs_to_many :genres
 
@@ -26,6 +28,10 @@ class Book < ApplicationRecord
   def discardable?
     return false if discarded?
     true
+  end
+
+  def liked?(user)
+    !!self.likes.find { |like| like.user_id == user.id }
   end
 
   def ability

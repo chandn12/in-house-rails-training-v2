@@ -1,6 +1,6 @@
 require 'faker'
 
-## Create 10 Genres
+# Create 10 Genres
 10.times.map do
   Genre.create!(
     name: Faker::Book.unique.genre,
@@ -18,6 +18,7 @@ genres = Genre.all
     password: Faker::Internet.password(min_length: 8)
   )
 
+  # Create Books
   book = Book.create!(
     name: Faker::Book.unique.title,
     short_description: Faker::Lorem.paragraph(sentence_count: 3),

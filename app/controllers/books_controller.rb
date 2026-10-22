@@ -8,6 +8,10 @@ class BooksController < ApplicationController
   def index
     @books = Book.recent_first
     @pagy, @books = pagy(@books)
+
+    if params[:search].present?
+      @books = @books.where("name ILIKE ?", "%#{params[:search]}%")
+    end
   end
 
   def show

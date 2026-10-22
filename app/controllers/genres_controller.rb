@@ -4,6 +4,10 @@ class GenresController < ApplicationController
   # GET /genres or /genres.json
   def index
     @pagy, @genres = pagy(Genre.all)
+
+    if params[:search].present?
+      @genres = @genres.where("name ILIKE ?", "%#{params[:search]}%")
+    end
   end
 
   # GET /genres/1 or /genres/1.json
